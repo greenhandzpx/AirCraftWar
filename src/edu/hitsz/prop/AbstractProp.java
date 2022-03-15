@@ -1,6 +1,7 @@
 package edu.hitsz.prop;
 
 
+import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.aircraft.HeroAircraft;
 /**
@@ -14,7 +15,11 @@ public abstract class AbstractProp extends AbstractFlyingObject {
 
     @Override
     public void forward() {
-
+        super.forward();
+        // 判定 y 轴向下飞行出界
+        if (locationY >= Main.WINDOW_HEIGHT ) {
+            vanish();
+        }
     }
 
     /**

@@ -187,6 +187,9 @@ public class Game extends JPanel {
         for (AbstractBullet bullet : enemyBullets) {
             bullet.forward();
         }
+        for (AbstractProp prop: props) {
+            prop.forward();
+        }
     }
 
     private void aircraftsMoveAction() {
@@ -244,7 +247,7 @@ public class Game extends JPanel {
                                         enemyAircraft.getLocationX(),
                                         enemyAircraft.getLocationY(),
                                         0,
-                                        0,
+                                        10,
                                         10
                                 ));
                             } else if (choice == 1) {
@@ -252,14 +255,14 @@ public class Game extends JPanel {
                                         enemyAircraft.getLocationX(),
                                         enemyAircraft.getLocationY(),
                                         0,
-                                        0
+                                        10
                                 ));
                             } else if (choice == 2){
                                 props.add(new BombProp(
                                         enemyAircraft.getLocationX(),
                                         enemyAircraft.getLocationY(),
                                         0,
-                                        0
+                                        10
                                 ));
                             }
                         }
@@ -277,7 +280,6 @@ public class Game extends JPanel {
         // Todo: 我方获得道具，道具生效
         for (AbstractProp prop: props) {
             if (prop.notValid()) {
-                // 道具已经超时失效
                 continue;
             }
             // 英雄机碰撞道具
