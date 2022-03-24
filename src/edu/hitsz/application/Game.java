@@ -7,6 +7,15 @@ import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.prop.BloodProp;
 import edu.hitsz.prop.BombProp;
 import edu.hitsz.prop.BulletProp;
+
+import edu.hitsz.factory.*;
+//import edu.hitsz.factory.EliteEnemyFactory;
+//import edu.hitsz.factory.MobEnemyFactory;
+//import edu.hitsz.factory.BossEnemyFactory;
+//import edu.hitsz.factory.BloodPropFactory;
+//import edu.hitsz.factory.BulletPropFactory;
+//import edu.hitsz.factory.BombPropFactory;
+
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -56,10 +65,15 @@ public class Game extends JPanel {
 
 
     public Game() {
-        heroAircraft = new HeroAircraft(
+        heroAircraft = HeroAircraft.getInstance(
                 Main.WINDOW_WIDTH / 2,
                 Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
                 0, 0, 100);
+
+//        heroAircraft = new HeroAircraft(
+//                Main.WINDOW_WIDTH / 2,
+//                Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
+//                0, 0, 100);
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -96,21 +110,23 @@ public class Game extends JPanel {
                 if (enemyAircrafts.size() < enemyMaxNumber) {
                     Random r = new Random();
                     if (r.nextBoolean()) {
-                        enemyAircrafts.add(new MobEnemy(
+                        MobEnemyFactory mobFac = new MobEnemyFactory(
                                 (int) ( Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()))*1,
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2)*1,
                                 0,
                                 10,
                                 30
-                        ));
+                        );
+                        enemyAircrafts.add(mobFac.createEnemy());
                     } else {
-                        enemyAircrafts.add(new EliteEnemy(
+                        EliteEnemyFactory eliteFac = new EliteEnemyFactory(
                                 (int) ( Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth()))*1,
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2)*1,
                                 0,
                                 5,
                                 50
-                        ));
+                        );
+                        enemyAircrafts.add(eliteFac.createEnemy());
                     }
                 }
                 // 飞机射出子弹

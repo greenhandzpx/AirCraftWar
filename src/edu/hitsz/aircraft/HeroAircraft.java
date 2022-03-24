@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class HeroAircraft extends AbstractAircraft {
 
+    private volatile static HeroAircraft instance;
     /**攻击方式 */
 
     /**
@@ -36,10 +37,20 @@ public class HeroAircraft extends AbstractAircraft {
      * @param speedY 英雄机射出的子弹的基准速度（英雄机无特定速度）
      * @param hp    初始生命值
      */
-    public HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
+    private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
     }
 
+    public static HeroAircraft getInstance(int locationX, int locationY, int speedX, int speedY, int hp) {
+        if (instance == null) {
+            synchronized (HeroAircraft.class) {
+                if (instance == null) {
+                    instance = new HeroAircraft(locationX, locationY, speedX, speedY, hp);
+                }
+            }
+        }
+        return instance;
+    }
     @Override
     public void forward() {
         // 英雄机由鼠标控制，不通过forward函数移动
