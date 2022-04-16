@@ -183,13 +183,19 @@ public class Game extends JPanel {
                 executorService.shutdown();
                 gameOverFlag = true;
                 System.out.println("Game Over!");
+
+                // 将当前日期转为String格式
                 SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss");
                 String date = sdf.format(new Date());
-                Record record = new Record("testUser", score,date);
+                // 新建一份记录
+                Record record = new Record("testUser", score, date);
+                // 添加到历史记录
                 recordDAOImpl.addRecord(record);
+                // 拿到所有历史记录
                 List<String[]> records = recordDAOImpl.getAllRecords();
+
                 System.out.println("*********************************************************");
-                System.out.println("                       得分排行榜");
+                System.out.println("                        得分排行榜");
                 System.out.println("*********************************************************");
                 for (String[] oldRecord: records) {
                     System.out.println(String.join(", ", oldRecord));

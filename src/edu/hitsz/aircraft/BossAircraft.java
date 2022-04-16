@@ -26,7 +26,7 @@ public class BossAircraft extends AbstractAircraft {
     /**
      * 子弹一次发射数量
      */
-    int shootNum = 2;
+    int shootNum = 5;
     /**
      * 子弹伤害
      */

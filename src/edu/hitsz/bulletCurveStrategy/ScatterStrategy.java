@@ -37,9 +37,9 @@ public class ScatterStrategy implements AbstractBulletCurveStrategy {
         AbstractBullet abstractBullet;
         for (int i = 0; i < shootNum; i++) {
             if (i < shootNum / 2) {
-                speedX = -5 * (shootNum/2 - i);
+                speedX = -2 * (shootNum/2 - i);
             } else {
-                speedX = 5 * (i - shootNum/2);
+                speedX = 2 * (i - shootNum/2);
             }
             if (aircraft instanceof HeroAircraft) {
                 speedY = aircraft.getSpeedY() + direction*23;
@@ -47,7 +47,7 @@ public class ScatterStrategy implements AbstractBulletCurveStrategy {
                         speedX, speedY, power);
             } else if (aircraft instanceof BossAircraft || aircraft instanceof EliteEnemy) {
                 abstractBullet = new EnemyBullet(x + (i*2 - shootNum + 1)*10, y,
-                        speedX, speedY, power);
+                        speedX, speedY+3, power);
             } else {
                 System.out.println("传入的飞机类型有误");
                 return res;
