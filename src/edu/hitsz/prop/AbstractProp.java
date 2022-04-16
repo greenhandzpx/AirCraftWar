@@ -21,7 +21,6 @@ public abstract class AbstractProp extends AbstractFlyingObject {
             vanish();
         }
     }
-
     /**
      * 道具的功能回调
      *

@@ -5,12 +5,11 @@ import edu.hitsz.prop.BombProp;
 
 public class BombPropFactory extends AbstractPropFactory {
 
-    public BombPropFactory(int locationX, int locationY, int speedX, int speedY) {
-        super(locationX, locationY, speedX, speedY);
+    public BombPropFactory() {
     }
 
     @Override
-    public AbstractProp createProp() {
+    public AbstractProp createProp(int locationX, int locationY, int speedX, int speedY) {
         return new BombProp(locationX, locationY, speedX, speedY);
     }
 }

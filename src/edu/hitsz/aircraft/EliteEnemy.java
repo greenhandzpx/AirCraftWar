@@ -1,33 +1,38 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
-import edu.hitsz.bullet.EnemyBullet;
+import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.bulletCurveStrategy.AbstractBulletCurveStrategy;
+import edu.hitsz.bulletCurveStrategy.StraightLineStrategy;
+import edu.hitsz.prop.AbstractProp;
+import edu.hitsz.prop.BloodProp;
+import edu.hitsz.prop.BombProp;
+import edu.hitsz.prop.BulletProp;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
+/**
+ * @author greenhandzpx
+ */
 public class EliteEnemy extends AbstractAircraft {
     /**攻击方式 */
+    private final AbstractBulletCurveStrategy bulletCurveStrategy;
 
-    /**
-     * 子弹一次发射数量
-     */
-    private int shootNum = 2;
+    private List<AbstractProp> props;
 
-    /**
-     * 子弹伤害
-     */
-    private int power = 10;
-
-    /**
-     * 子弹射击方向 (向上发射：1，向下发射：-1)
-     */
-    private int direction = 1;
-
-    public EliteEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
+    public EliteEnemy(int locationX, int locationY, int speedX, int speedY,
+                      int hp, List<AbstractProp> props) {
         super(locationX, locationY, speedX, speedY, hp);
+        // 子弹一次发射数量
+        int shootNum = 2;
+        // 子弹伤害
+        int power = 10;
+        // 子弹射击方向 (向上发射：1，向下发射：-1)
+        int direction = 1;
+        this.bulletCurveStrategy = new StraightLineStrategy(power, shootNum, direction);
+        this.props = props;
     }
 
     @Override
@@ -41,22 +46,23 @@ public class EliteEnemy extends AbstractAircraft {
 
     @Override
     public List<AbstractBullet> shoot() {
-        List<AbstractBullet> res = new LinkedList<>();
-        int x = this.getLocationX();
-        int y = this.getLocationY() + direction*2;
-        int speedX = 0;
-        //int speedX = 10;
-        //int speedY = this.getSpeedY() + direction*5;
-        int speedY = this.getSpeedY() + direction*5;
-        AbstractBullet abstractBullet;
-        for(int i=0; i<shootNum; i++){
-            // 子弹发射位置相对飞机位置向前偏移
-            // 多个子弹横向分散
-            //abstractBullet = new HeroBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
-            abstractBullet = new EnemyBullet(x + (i*2 - shootNum + 1)*10, y, speedX, speedY, power);
-            res.add(abstractBullet);
-        }
-        return res;
+        return bulletCurveStrategy.shoot(this);
     }
 
+
+    @Override
+    public void vanish() {
+        // 随机掉落一种道具或不掉落
+        Random r = new Random();
+        int choice = r.nextInt(4);
+        // 三种情况分别掉落不同的道具
+        if (choice == 1) {
+            props.add(new BulletProp(locationX, locationY, 0, 5));
+        } else if (choice == 2) {
+            props.add(new BloodProp(locationX, locationY, 0, 5));
+        } else if (choice == 3) {
+            props.add(new BombProp(locationX, locationY, 0, 5));
+        }
+        super.vanish();
+    }
 }

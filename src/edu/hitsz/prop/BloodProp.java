@@ -2,12 +2,14 @@ package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.HeroAircraft;
 
+/**
+ * @author greenhandzpx
+ */
 public class BloodProp extends AbstractProp {
 
-    private final int recoverHp;
-    public BloodProp(int locationX, int locationY, int speedX, int speedY, int recoverHp) {
+    private final int recoverHp = 20;
+    public BloodProp(int locationX, int locationY, int speedX, int speedY) {
         super(locationX, locationY, speedX, speedY);
-        this.recoverHp = recoverHp;
     }
 
     @Override
