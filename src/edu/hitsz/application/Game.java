@@ -1,8 +1,9 @@
 package edu.hitsz.application;
 
-import edu.hitsz.Record.FileRecordDAOImpl;
-import edu.hitsz.Record.Record;
-import edu.hitsz.Record.RecordDAO;
+import edu.hitsz.musicThread.MusicThread;
+import edu.hitsz.record.FileRecordDAOImpl;
+import edu.hitsz.record.Record;
+import edu.hitsz.record.RecordDAO;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.basic.AbstractFlyingObject;
@@ -116,7 +117,7 @@ public class Game extends JPanel {
     /**
      * 游戏启动入口，执行游戏逻辑
      */
-    public void action() {
+    public void action(JFrame frame) {
 
         // 定时任务：绘制、对象产生、碰撞判定、击毁及结束判定
         Runnable task = () -> {
@@ -184,6 +185,9 @@ public class Game extends JPanel {
                 gameOverFlag = true;
                 System.out.println("Game Over!");
 
+                synchronized (frame) {
+                    frame.notify();
+                }
                 // 将当前日期转为String格式
                 SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss");
                 String date = sdf.format(new Date());
@@ -293,6 +297,7 @@ public class Game extends JPanel {
                 if (enemyAircraft.crash(bullet)) {
                     // 敌机撞击到英雄机子弹
                     // 敌机损失一定生命值
+                    new MusicThread("src/videos/bullet_hit.wav", 0).start();
                     enemyAircraft.decreaseHp(bullet.getPower());
                     bullet.vanish();
                     if (enemyAircraft.notValid()) {

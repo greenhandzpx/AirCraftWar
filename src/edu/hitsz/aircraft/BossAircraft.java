@@ -1,22 +1,25 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.application.Main;
-import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bulletCurveStrategy.AbstractBulletCurveStrategy;
 import edu.hitsz.bulletCurveStrategy.ScatterStrategy;
+import edu.hitsz.musicThread.MusicThread;
 import edu.hitsz.prop.AbstractProp;
 import edu.hitsz.prop.BloodProp;
 import edu.hitsz.prop.BombProp;
 import edu.hitsz.prop.BulletProp;
+import edu.hitsz.ui.StartPanel;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Random;
 
 /**
  *@author greenhandzpx
  */
 public class BossAircraft extends AbstractAircraft {
 
+    public static boolean STOP_BOSS_BGM = true;
 
     private List<AbstractProp> props;
 
@@ -49,6 +52,19 @@ public class BossAircraft extends AbstractAircraft {
         setBulletCurveStrategy(new ScatterStrategy(power, shootNum, direction));
 //        this.bulletCurveStrategy = new ScatterStrategy(power, shootNum, direction);
         this.props = props;
+
+        BossAircraft.STOP_BOSS_BGM = false;
+        Thread thread = new MusicThread("src/videos/bgm_boss.wav", 2) {
+            @Override
+            public void run() {
+                while (!StartPanel.EXIT && !BossAircraft.STOP_BOSS_BGM) {
+                    InputStream stream = new ByteArrayInputStream(this.samples);
+                    play(stream);
+                }
+            }
+        };
+        thread.start();
+
     }
 
     public void setBulletCurveStrategy(AbstractBulletCurveStrategy bulletCurveStrategy) {
@@ -75,6 +91,7 @@ public class BossAircraft extends AbstractAircraft {
         props.add(new BulletProp(locationX, locationY, 0, 5));
         props.add(new BloodProp(locationX, locationY, 0, 5));
         props.add(new BombProp(locationX, locationY, 0, 5));
+        BossAircraft.STOP_BOSS_BGM = true;
         super.vanish();
     }
 

@@ -1,6 +1,7 @@
 
 package edu.hitsz.prop;
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.musicThread.MusicThread;
 
 public class BombProp extends AbstractProp {
 
@@ -10,6 +11,7 @@ public class BombProp extends AbstractProp {
 
     @Override
     public void propCallback(HeroAircraft hero) {
+        new MusicThread("src/videos/bomb_explosion.wav", 0).start();
         System.out.println("BombSupply active!");
     }
 

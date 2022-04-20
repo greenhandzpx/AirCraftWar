@@ -4,6 +4,8 @@ package edu.hitsz.prop;
 import edu.hitsz.application.Main;
 import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.musicThread.MusicThread;
+
 /**
  * 道具类
  */
@@ -26,4 +28,5 @@ public abstract class AbstractProp extends AbstractFlyingObject {
      *
      */
     public abstract void propCallback(HeroAircraft hero);
+
 }

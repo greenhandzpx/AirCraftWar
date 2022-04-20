@@ -1,6 +1,7 @@
 package edu.hitsz.prop;
 
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.musicThread.MusicThread;
 
 /**
  * @author greenhandzpx
@@ -14,7 +15,8 @@ public class BloodProp extends AbstractProp {
 
     @Override
     public void propCallback(HeroAircraft hero) {
-         hero.decreaseHp(-recoverHp);
+        new MusicThread("src/videos/get_supply.wav", 0).start();
+        hero.decreaseHp(-recoverHp);
     }
 
 }
