@@ -16,15 +16,24 @@ public class StraightLineStrategy implements AbstractBulletCurveStrategy {
      * 直线弹道
      */
 
-    private final int shootNum;
-    private final int direction;
-    private final int power;
+    private int shootNum;
+    private int direction;
+    private int power;
 
     public StraightLineStrategy(int power, int shootNum, int direction) {
         this.power = power;
         this.shootNum = shootNum;
         this.direction = direction;
     }
+//    public void setPower(int power) {
+//        this.power = power;
+//    }
+//    public void setShootNum(int shootNum) {
+//        this.shootNum = shootNum;
+//    }
+//    public void setDirection(int direction) {
+//        this.direction = direction;
+//    }
 
     @Override
     public List<AbstractBullet> shoot(AbstractAircraft aircraft) {

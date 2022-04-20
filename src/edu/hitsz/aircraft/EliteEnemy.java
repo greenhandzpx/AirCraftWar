@@ -1,7 +1,6 @@
 package edu.hitsz.aircraft;
 
 import edu.hitsz.application.Main;
-import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bulletCurveStrategy.AbstractBulletCurveStrategy;
 import edu.hitsz.bulletCurveStrategy.StraightLineStrategy;
@@ -20,7 +19,7 @@ public class EliteEnemy extends AbstractAircraft {
     /**攻击方式 */
     private final AbstractBulletCurveStrategy bulletCurveStrategy;
 
-    private List<AbstractProp> props;
+    private final List<AbstractProp> props;
 
     public EliteEnemy(int locationX, int locationY, int speedX, int speedY,
                       int hp, List<AbstractProp> props) {
@@ -54,9 +53,9 @@ public class EliteEnemy extends AbstractAircraft {
     public void vanish() {
         // 随机掉落一种道具或不掉落
         Random r = new Random();
-        int choice = r.nextInt(4);
+        int choice = r.nextInt(5);
         // 三种情况分别掉落不同的道具
-        if (choice == 1) {
+        if (choice == 1 || choice == 4) {
             props.add(new BulletProp(locationX, locationY, 0, 5));
         } else if (choice == 2) {
             props.add(new BloodProp(locationX, locationY, 0, 5));

@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class HeroAircraft extends AbstractAircraft {
 
-    private AbstractBulletCurveStrategy bulletCurveStrategy;
 
     private volatile static HeroAircraft instance;
 
@@ -50,7 +49,7 @@ public class HeroAircraft extends AbstractAircraft {
     private HeroAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);
 
-        this.bulletCurveStrategy = new StraightLineStrategy(power, shootNum, direction);
+        this.setBulletCurveStrategy(new StraightLineStrategy(power, shootNum, direction));
     }
 
     public static HeroAircraft getInstance(int locationX, int locationY, int speedX, int speedY, int hp) {
@@ -72,13 +71,13 @@ public class HeroAircraft extends AbstractAircraft {
         this.bulletCurveStrategy = bulletCurveStrategy;
     }
 
-    @Override
-    /**
-     * 通过射击产生子弹
-     * @return 射击出的子弹List
-     */
-    public List<AbstractBullet> shoot() {
-        return bulletCurveStrategy.shoot(this);
-    }
+//    @Override
+//    /**
+//     * 通过射击产生子弹
+//     * @return 射击出的子弹List
+//     */
+//    public List<AbstractBullet> shoot() {
+//        return bulletCurveStrategy.shoot(this);
+//    }
 
 }

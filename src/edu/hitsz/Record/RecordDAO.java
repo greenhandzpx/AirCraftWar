@@ -1,6 +1,5 @@
 package edu.hitsz.Record;
 
-import java.util.Date;
 import java.util.List;
 
 public interface RecordDAO {

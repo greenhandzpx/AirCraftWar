@@ -79,9 +79,9 @@ public class Game extends JPanel {
     /**
      * 创建相应的工厂
      */
-    private final BulletPropFactory bulletPropFactory = new BulletPropFactory();
-    private final BloodPropFactory bloodPropFactory = new BloodPropFactory();
-    private final BombPropFactory bombPropFactory = new BombPropFactory();
+//    private final BulletPropFactory bulletPropFactory = new BulletPropFactory();
+//    private final BloodPropFactory bloodPropFactory = new BloodPropFactory();
+//    private final BombPropFactory bombPropFactory = new BombPropFactory();
 
     private final MobEnemyFactory mobEnemyFactory = new MobEnemyFactory();
     private final EliteEnemyFactory eliteEnemyFactory;
@@ -154,7 +154,7 @@ public class Game extends JPanel {
                             (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2),
                             5,
                             0,
-                            500
+                            1000
                     ));
                     hasBoss = true;
                 }

@@ -17,9 +17,9 @@ public class ScatterStrategy implements AbstractBulletCurveStrategy {
      * 散射弹道
      */
 
-    private final int shootNum;
-    private final int direction;
-    private final int power;
+    private int shootNum;
+    private int direction;
+    private int power;
 
     public ScatterStrategy(int power, int shootNum, int direction) {
         this.power = power;

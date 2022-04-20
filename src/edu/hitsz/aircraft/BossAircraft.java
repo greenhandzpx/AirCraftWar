@@ -21,7 +21,6 @@ public class BossAircraft extends AbstractAircraft {
     private List<AbstractProp> props;
 
     /**攻击方式 */
-    private final AbstractBulletCurveStrategy bulletCurveStrategy;
 
     /**
      * 子弹一次发射数量
@@ -46,8 +45,14 @@ public class BossAircraft extends AbstractAircraft {
     public BossAircraft(int locationX, int locationY, int speedX, int speedY,
                         int hp, List<AbstractProp> props) {
         super(locationX, locationY, speedX, speedY, hp);
-        this.bulletCurveStrategy = new ScatterStrategy(power, shootNum, direction);
+
+        setBulletCurveStrategy(new ScatterStrategy(power, shootNum, direction));
+//        this.bulletCurveStrategy = new ScatterStrategy(power, shootNum, direction);
         this.props = props;
+    }
+
+    public void setBulletCurveStrategy(AbstractBulletCurveStrategy bulletCurveStrategy) {
+        this.bulletCurveStrategy = bulletCurveStrategy;
     }
 
     @Override
@@ -59,10 +64,10 @@ public class BossAircraft extends AbstractAircraft {
         }
     }
 
-    @Override
-    public List<AbstractBullet> shoot() {
-        return bulletCurveStrategy.shoot(this);
-    }
+//    @Override
+//    public List<AbstractBullet> shoot() {
+//        return bulletCurveStrategy.shoot(this);
+//    }
 
     @Override
     public void vanish() {
