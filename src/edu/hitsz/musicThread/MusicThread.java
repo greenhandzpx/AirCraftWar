@@ -89,12 +89,15 @@ public class MusicThread extends Thread {
             int numBytesRead = 0;
             while (numBytesRead != -1) {
                 if (StartPanel.EXIT) {
+                    // 全局停止变量
                     break;
                 }
                 if (identity == 1 && !BossAircraft.STOP_BOSS_BGM) {
+                    // 如果是普通背景音乐，当播放BOSS音乐时停止
                     break;
                 }
                 if (identity == 2 && BossAircraft.STOP_BOSS_BGM) {
+                    // 如果是BOSS音乐
                     break;
                 }
                 //从音频流读取指定的最大数量的数据字节，并将其放入缓冲区中

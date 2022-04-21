@@ -16,6 +16,7 @@ import edu.hitsz.factory.*;
 //import edu.hitsz.factory.BloodPropFactory;
 //import edu.hitsz.factory.BulletPropFactory;
 
+import edu.hitsz.ui.StartPanel;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import javax.swing.*;
@@ -68,7 +69,7 @@ public class Game extends JPanel {
     private final int enemyMaxNumber = 5;
 
     private boolean gameOverFlag = false;
-    private int score = 0;
+    public int score = 0;
     private int time = 0;
     /**
      * 周期（ms)
@@ -184,26 +185,29 @@ public class Game extends JPanel {
                 executorService.shutdown();
                 gameOverFlag = true;
                 System.out.println("Game Over!");
+                // 停到背景音乐
+                StartPanel.EXIT = true;
 
                 synchronized (frame) {
                     frame.notify();
                 }
-                // 将当前日期转为String格式
-                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss");
-                String date = sdf.format(new Date());
-                // 新建一份记录
-                Record record = new Record("testUser", score, date);
-                // 添加到历史记录
-                recordDAOImpl.addRecord(record);
-                // 拿到所有历史记录
-                List<String[]> records = recordDAOImpl.getAllRecords();
 
-                System.out.println("*********************************************************");
-                System.out.println("                        得分排行榜");
-                System.out.println("*********************************************************");
-                for (String[] oldRecord: records) {
-                    System.out.println(String.join(", ", oldRecord));
-                }
+//                // 将当前日期转为String格式
+//                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss");
+//                String date = sdf.format(new Date());
+//                // 新建一份记录
+//                Record record = new Record("testUser", score, date);
+//                // 添加到历史记录
+//                recordDAOImpl.addRecord(record);
+//                // 拿到所有历史记录
+//                List<String[]> records = recordDAOImpl.getAllRecords();
+//
+//                System.out.println("*********************************************************");
+//                System.out.println("                        得分排行榜");
+//                System.out.println("*********************************************************");
+//                for (String[] oldRecord: records) {
+//                    System.out.println(String.join(", ", oldRecord));
+//                }
             }
 
         };

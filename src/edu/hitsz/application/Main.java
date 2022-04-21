@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
+import edu.hitsz.ui.EndPanel;
 import edu.hitsz.ui.StartPanel;
 /**
  * 程序入口
@@ -38,9 +39,11 @@ public class Main {
             try {
                 startPanel.wait();
             } catch (InterruptedException e) {
-
+                e.printStackTrace();
             }
         }
+
+        // 选中难度后进入游戏界面
         frame.setVisible(false);
         System.out.println("开始游戏");
         // 用户选中难度后开始游戏
@@ -63,8 +66,11 @@ public class Main {
                 frame.wait();
                 System.out.println("醒了");
             } catch (InterruptedException e) {
-
             }
         }
+
+        Container endPanel = new EndPanel(game.score).panel1;
+        frame.setContentPane(endPanel);
+        frame.setVisible(true);
     }
 }

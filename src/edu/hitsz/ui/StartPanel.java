@@ -12,16 +12,28 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * 游戏难度
+ */
+enum Difficulty {
+    EASY,
+    NORMAL,
+    HARD
+}
+
 public class StartPanel {
     public JPanel panel1;
     private JButton button1;
-    private JPanel panel2;
+    private JPanel bottomPanel;
     private JButton button2;
     private JButton button3;
     private JComboBox comboBox1;
-    private JTextField textField1;
+    private JLabel voiceLabel;
+    private JPanel topPanel;
+
 
     public static boolean EXIT = false;
+    public static Difficulty DIFFICULTY = Difficulty.EASY;
 
     public StartPanel() {
 
@@ -67,6 +79,7 @@ public class StartPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ImageManager.bgImg = "src/images/bg.jpg" ;
+                DIFFICULTY = Difficulty.EASY;
                 synchronized (panel1) {
                     panel1.notify();
                 }
@@ -80,6 +93,7 @@ public class StartPanel {
                 } catch (IOException exp) {
                     exp.printStackTrace();
                 }
+                DIFFICULTY = Difficulty.NORMAL;
                 synchronized (panel1) {
                     panel1.notify();
                 }
@@ -94,6 +108,7 @@ public class StartPanel {
                 } catch (IOException exp) {
                     exp.printStackTrace();
                 }
+                DIFFICULTY = Difficulty.HARD;
                 synchronized (panel1) {
                     panel1.notify();
                 }
@@ -108,4 +123,6 @@ public class StartPanel {
         frame.pack();
         frame.setVisible(true);
     }
+
+
 }
