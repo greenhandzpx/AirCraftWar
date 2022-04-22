@@ -32,7 +32,13 @@ public class StartPanel {
     private JPanel topPanel;
 
 
+    /**
+     * 控制全局的音效播放
+     */
     public static boolean EXIT = false;
+    /**
+     * 游戏难度
+     */
     public static Difficulty DIFFICULTY = Difficulty.EASY;
 
     public StartPanel() {

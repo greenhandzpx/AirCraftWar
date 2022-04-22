@@ -68,6 +68,9 @@ public class FileRecordDAOImpl implements RecordDAO {
                     rank += 1;
                     records.get(i)[0] = "rank:" + rank;
                 }
+                /*
+                将新的记录写入相应位置
+                 */
                 for (int i = 0; i < records.size(); i++) {
                     try {
                         if (i == location) {
@@ -105,11 +108,30 @@ public class FileRecordDAOImpl implements RecordDAO {
     }
 
     @Override
-    public void deleteRecord(int id) {
-        // TODO
-        System.out.println("文件形式存储尚未实现删除记录功能，敬请期待...");
+    public void deleteRecord(int row) {
+        // 读入当前所有的数据行
+        List<String[]> records = readRecords();
+        records.remove(row);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+            for (String[] strings : records) {
+                System.out.println(String.join(",", strings));
+                try {
+                    writer.write(String.join(",", strings) + "\n");
+                } catch (IOException e) {
+                    System.out.println("写入失败");
+                }
+            }
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
-
 
     @Override
     public List<String[]> getAllRecords() {

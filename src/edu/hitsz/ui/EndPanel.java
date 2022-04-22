@@ -91,6 +91,9 @@ public class EndPanel {
                 if (ans == JOptionPane.YES_OPTION) {
                     System.out.println("确定");
                     model.removeRow(row);
+                    fileRecordDAO.deleteRecord(row);
+                    System.out.printf("删除第%d行\n", row);
+
                 } else  {
                     System.out.println("取消");
                 }

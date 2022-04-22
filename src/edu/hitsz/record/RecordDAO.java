@@ -6,7 +6,7 @@ public interface RecordDAO {
 
     void addRecord(Record record);
 
-    void deleteRecord(int id);
+    void deleteRecord(int row);
 
     List<String[]> getAllRecords();
 }
