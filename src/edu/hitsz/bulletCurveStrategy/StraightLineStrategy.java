@@ -7,6 +7,7 @@ import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.bullet.AbstractBullet;
 import edu.hitsz.bullet.EnemyBullet;
 import edu.hitsz.bullet.HeroBullet;
+import edu.hitsz.musicThread.MusicThread;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +58,7 @@ public class StraightLineStrategy implements AbstractBulletCurveStrategy {
             }
             res.add(abstractBullet);
         }
+//        new MusicThread("src/videos/game_over.wav", 0).start();
         return res;
     }
 

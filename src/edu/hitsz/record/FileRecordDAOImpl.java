@@ -115,8 +115,11 @@ public class FileRecordDAOImpl implements RecordDAO {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+            int rank = 1;
             for (String[] strings : records) {
-                System.out.println(String.join(",", strings));
+//                System.out.println(String.join(",", strings));
+                strings[0] = "rank:" + rank;
+                rank++;
                 try {
                     writer.write(String.join(",", strings) + "\n");
                 } catch (IOException e) {
