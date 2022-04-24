@@ -30,6 +30,10 @@ public class FileRecordDAOImpl implements RecordDAO {
 
     }
 
+    /**
+     * 添加一条记录
+     * @param record 记录
+     */
     @Override
     public void addRecord(Record record) {
         File file = new File(fileName);
@@ -107,6 +111,10 @@ public class FileRecordDAOImpl implements RecordDAO {
         }
     }
 
+    /**
+     * 删除指定记录
+     * @param row 该记录所在的行序号
+     */
     @Override
     public void deleteRecord(int row) {
         // 读入当前所有的数据行
@@ -117,7 +125,7 @@ public class FileRecordDAOImpl implements RecordDAO {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
             int rank = 1;
             for (String[] strings : records) {
-//                System.out.println(String.join(",", strings));
+                // 修改原来记录的排名
                 strings[0] = "rank:" + rank;
                 rank++;
                 try {

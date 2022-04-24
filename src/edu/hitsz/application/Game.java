@@ -58,7 +58,7 @@ public class Game extends JPanel {
     /**
      * 文件形式记录分数及排名
      */
-    private final RecordDAO recordDAOImpl = new FileRecordDAOImpl("historyRecords.csv");
+    private final RecordDAO recordDAOImpl = new FileRecordDAOImpl("hardRecords.csv");
 
     private final HeroAircraft heroAircraft;
     private final List<AbstractAircraft> enemyAircrafts;

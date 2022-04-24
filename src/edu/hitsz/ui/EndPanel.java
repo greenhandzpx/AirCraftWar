@@ -31,22 +31,27 @@ public class EndPanel {
 
     public EndPanel(int score) {
         String difficulty;
+        String fileName;
         switch (StartPanel.DIFFICULTY) {
             case EASY:
                 difficulty = "EASY";
+                fileName = "easyRecords.csv";
                 break;
             case NORMAL:
                 difficulty = "NORMAL";
+                fileName = "normalRecords.csv";
                 break;
             case HARD:
                 difficulty = "HARD";
+                fileName = "hardRecords.csv";
                 break;
             default:
                 difficulty = "";
+                fileName = "";
         }
         difficultyLabel.setText("难度："+difficulty);
 
-        FileRecordDAOImpl fileRecordDAO = new FileRecordDAOImpl("historyRecords.csv");
+        FileRecordDAOImpl fileRecordDAO = new FileRecordDAOImpl(fileName);
         String[] columnName = {"名次", "ID", "玩家名", "得分", "记录时间"};
 
         String name = JOptionPane.showInputDialog(panel1, "游戏结束，你的得分为:"+score+"\n请输入名字记录得分:");

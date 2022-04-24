@@ -82,12 +82,10 @@ public class StartPanel {
 //                        }
 //                    };
 //                    new Thread(r, "repeat music").start();
-
                 } else {
                     System.out.println("关闭");
                     // TODO
                     StartPanel.EXIT = true;
-//                    thread.interrupt();
                 }
             }
         } );
