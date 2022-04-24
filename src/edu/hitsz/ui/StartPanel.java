@@ -43,7 +43,17 @@ public class StartPanel {
 
     public StartPanel() {
 
-        comboBox1.setSelectedIndex(1);
+        comboBox1.setSelectedIndex(0);
+        Thread thread = new MusicThread("src/videos/bgm.wav", 1) {
+            @Override
+            public void run() {
+                while (!StartPanel.EXIT) {
+                    InputStream stream = new ByteArrayInputStream(this.samples);
+                    play(stream);
+                }
+            }
+        };
+        thread.start();
         comboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

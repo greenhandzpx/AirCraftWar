@@ -184,10 +184,18 @@ public class Game extends JPanel {
                 // 游戏结束
                 executorService.shutdown();
                 gameOverFlag = true;
+                new MusicThread("src/videos/game_over.wav", 0).start();
                 System.out.println("Game Over!");
-                // 停到背景音乐
-                StartPanel.EXIT = true;
 
+                // 等待500ms让游戏结束音效生效，再停止音乐
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // 停掉背景音乐
+                StartPanel.EXIT = true;
+                // 通知切换为结束页面
                 synchronized (frame) {
                     frame.notify();
                 }
