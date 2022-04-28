@@ -1,8 +1,8 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.application.Game;
 import edu.hitsz.application.Main;
 import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.observerPattern.Subscriber;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +13,13 @@ import java.util.List;
  *
  * @author hitsz
  */
-public class MobEnemy extends AbstractAircraft {
+public class MobEnemy extends AbstractAircraft implements Subscriber {
+
+    @Override
+    public void update() {
+        System.out.println("call update in mob");
+        vanish();
+    }
 
     public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
         super(locationX, locationY, speedX, speedY, hp);

@@ -1,8 +1,9 @@
 package edu.hitsz.application;
 
 import edu.hitsz.musicThread.MusicThread;
+import edu.hitsz.observerPattern.Subscriber;
+import edu.hitsz.prop.BombProp;
 import edu.hitsz.record.FileRecordDAOImpl;
-import edu.hitsz.record.Record;
 import edu.hitsz.record.RecordDAO;
 import edu.hitsz.aircraft.*;
 import edu.hitsz.bullet.AbstractBullet;
@@ -10,11 +11,6 @@ import edu.hitsz.basic.AbstractFlyingObject;
 import edu.hitsz.prop.AbstractProp;
 
 import edu.hitsz.factory.*;
-//import edu.hitsz.factory.EliteEnemyFactory;
-//import edu.hitsz.factory.MobEnemyFactory;
-//import edu.hitsz.factory.BossEnemyFactory;
-//import edu.hitsz.factory.BloodPropFactory;
-//import edu.hitsz.factory.BulletPropFactory;
 
 import edu.hitsz.ui.StartPanel;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
@@ -22,7 +18,6 @@ import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -172,7 +167,6 @@ public class Game extends JPanel {
 
             // 撞击检测
             crashCheckAction();
-
             // 后处理
             postProcessAction();
 
@@ -340,11 +334,25 @@ public class Game extends JPanel {
             // 英雄机碰撞道具
             if (heroAircraft.crash(prop)) {
                 // 触发道具回调
+                if (prop instanceof BombProp) {
+                    // 如果是炸弹道具
+                    for (AbstractAircraft aircraft: enemyAircrafts) {
+                        if (aircraft instanceof Subscriber && !aircraft.notValid()) {
+                            // 如果是订阅者
+                            ((BombProp) prop).subscribe((Subscriber) aircraft);
+                        }
+                    }
+                    // 加入敌机子弹
+                    for (AbstractBullet enemyBullet: enemyBullets) {
+                        if (!enemyBullet.notValid()) {
+                            ((BombProp) prop).subscribe((Subscriber) enemyBullet);
+                        }
+                    }
+                }
                 prop.propCallback(heroAircraft);
                 prop.vanish();
             }
         }
-
     }
 
     /**

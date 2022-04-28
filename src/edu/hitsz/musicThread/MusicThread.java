@@ -27,9 +27,11 @@ public class MusicThread extends Thread {
      * 1：游戏bgm
      * 2：boss bgm
      */
-    private int identity;
-    //音频文件名
-    private String filename;
+    private final int identity;
+    /**
+     *音频文件名
+     */
+    private final String filename;
     private AudioFormat audioFormat;
     protected byte[] samples;
 
@@ -47,10 +49,7 @@ public class MusicThread extends Thread {
             //用AudioFormat来获取AudioInputStream的格式
             audioFormat = stream.getFormat();
             samples = getSamples(stream);
-        } catch (UnsupportedAudioFileException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (UnsupportedAudioFileException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -83,6 +82,7 @@ public class MusicThread extends Thread {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        assert dataLine != null;
         dataLine.start();
 
         try {
