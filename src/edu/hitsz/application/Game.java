@@ -27,10 +27,24 @@ import java.util.concurrent.*;
  *
  * @author hitsz
  */
-public class Game extends JPanel {
+public abstract class Game extends JPanel {
 
     private int backGroundTop = 0;
 
+
+    /**
+     * 敌机纵向速度
+     */
+    protected int enemySpeedY = 5;
+    /**
+     * Boss 血量
+     */
+    protected int bossHp = 1000;
+
+    /**
+     * 精英敌机血量
+     */
+    protected int eliteHp = 50;
     /**
      * Scheduled 线程池，用于任务调度
      */
@@ -39,10 +53,14 @@ public class Game extends JPanel {
     /**
      * Boss机出现需要的分数
      */
-    private final int bossScoreThreshold = 100;
+    protected int bossScoreThreshold = 100;
+    /**
+     * 敌机的最大数量
+     */
+    protected int enemyMaxNumber = 5;
     /**
      * 标记是否已经有Boss机
-      */
+     */
     private boolean hasBoss = false;
     /**
      * 时间间隔(ms)，控制刷新频率
@@ -61,16 +79,15 @@ public class Game extends JPanel {
     private final List<AbstractBullet> enemyBullets;
     private final List<AbstractProp> props;
 
-    private final int enemyMaxNumber = 5;
 
     private boolean gameOverFlag = false;
     public int score = 0;
-    private int time = 0;
+    protected int time = 0;
     /**
      * 周期（ms)
      * 指示子弹的发射、敌机的产生频率
      */
-    private final int cycleDuration = 600;
+    protected int cycleDuration = 600;
     private int cycleTime = 0;
 
     /**
@@ -84,11 +101,19 @@ public class Game extends JPanel {
     private final EliteEnemyFactory eliteEnemyFactory;
     private final BossEnemyFactory bossEnemyFactory;
 
+
+    /**
+     * 用来配置参数
+     */
+    public void config() {
+
+    }
+
     public Game() {
         heroAircraft = HeroAircraft.getInstance(
                 Main.WINDOW_WIDTH / 2,
                 Main.WINDOW_HEIGHT - ImageManager.HERO_IMAGE.getHeight() ,
-                0, 0, 100);
+                0, 0, 500);
 
         enemyAircrafts = new LinkedList<>();
         heroBullets = new LinkedList<>();
@@ -131,7 +156,7 @@ public class Game extends JPanel {
                                 (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2),
                                 0,
-                                10,
+                                enemySpeedY,
                                 30
                         ));
                     } else {
@@ -140,24 +165,21 @@ public class Game extends JPanel {
                                 (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2),
                                 // 横向速度为+-2
                                 -6 + 4 * (new Random()).nextInt(2),
-                                5,
-                                50
+                                enemySpeedY,
+                                eliteHp
                         ));
                     }
                 }
-                if (score > 0 && (score % bossScoreThreshold == 0) && !hasBoss) {
-                    enemyAircrafts.add(bossEnemyFactory.createEnemy(
-                            (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
-                            (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2),
-                            5,
-                            0,
-                            1000
-                    ));
-                    hasBoss = true;
-                }
+
                 // 飞机射出子弹
                 shootAction();
             }
+
+            // 判断是否需要更新难度
+            updateConfig();
+
+            // Boss机产生
+            createBoss();
 
             // 子弹移动
             bulletsMoveAction();
@@ -226,6 +248,25 @@ public class Game extends JPanel {
     //      Action 各部分
     //***********************
 
+    /**
+     * 检查是否需要更新参数
+     */
+    abstract protected void updateConfig();
+
+    protected boolean createBoss() {
+        if (score > 0 && (score % bossScoreThreshold == 0) && !hasBoss) {
+            enemyAircrafts.add(bossEnemyFactory.createEnemy(
+                    (int) (Math.random() * (Main.WINDOW_WIDTH - ImageManager.MOB_ENEMY_IMAGE.getWidth())),
+                    (int) (Math.random() * Main.WINDOW_HEIGHT * 0.2),
+                    5,
+                    0,
+                    bossHp
+            ));
+            hasBoss = true;
+            return true;
+        }
+        return false;
+    }
     private boolean timeCountAndNewCycleJudge() {
         cycleTime += timeInterval;
         if (cycleTime >= cycleDuration && cycleTime - timeInterval < cycleTime) {
@@ -340,6 +381,7 @@ public class Game extends JPanel {
                         if (aircraft instanceof Subscriber && !aircraft.notValid()) {
                             // 如果是订阅者
                             ((BombProp) prop).subscribe((Subscriber) aircraft);
+                            score += 10;
                         }
                     }
                     // 加入敌机子弹

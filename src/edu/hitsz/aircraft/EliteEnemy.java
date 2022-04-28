@@ -56,7 +56,7 @@ public class EliteEnemy extends AbstractAircraft implements Subscriber {
         Random r = new Random();
         int choice = r.nextInt(4);
         // 三种情况分别掉落不同的道具
-        if (choice == 1 || choice == 2) {
+        if (choice == 1) {
             props.add(new BombProp(locationX, locationY, 0, 5));
         } else if (choice == 2) {
             props.add(new BloodProp(locationX, locationY, 0, 5));

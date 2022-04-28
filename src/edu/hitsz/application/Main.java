@@ -57,15 +57,26 @@ public class Main {
                 WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Game game = new Game();
+        Game game;
+
+        switch (StartPanel.DIFFICULTY) {
+            case NORMAL:
+                game = new NormalGame();
+                break;
+            case HARD:
+                game = new HardGame();
+                break;
+            default:
+                game = new EasyGame();
+        }
         frame.add(game);
         frame.setVisible(true);
         game.action(frame);
         synchronized (frame) {
             try {
                 frame.wait();
-                System.out.println("醒了");
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 

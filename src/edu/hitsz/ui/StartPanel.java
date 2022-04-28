@@ -12,15 +12,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * 游戏难度
- */
-enum Difficulty {
-    EASY,
-    NORMAL,
-    HARD
-}
-
 public class StartPanel {
     public JPanel panel1;
     private JButton button1;
@@ -40,6 +31,7 @@ public class StartPanel {
      * 游戏难度
      */
     public static Difficulty DIFFICULTY = Difficulty.EASY;
+
 
     public StartPanel() {
 
@@ -118,7 +110,7 @@ public class StartPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg3.jpg"));
+                    ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg5.jpg"));
                 } catch (IOException exp) {
                     exp.printStackTrace();
                 }

@@ -28,15 +28,16 @@ public class BulletProp extends AbstractProp {
             Lock lock = new ReentrantLock();
             lock.lock();
             try {
-                hero.setShootNum(1);
+                hero.setShootNum(hero.getShootNum()-2);
                 hero.setBulletCurveStrategy(new StraightLineStrategy(hero.getPower(), hero.getShootNum(), hero.getDirection()));
             } finally {
                 lock.unlock();
             }
         };
+
         new Thread(r, "Thread for timeout").start();
 
-        hero.setShootNum(5);
+        hero.setShootNum(hero.getShootNum()+2);
         hero.setBulletCurveStrategy(new ScatterStrategy(hero.getPower(), hero.getShootNum(), hero.getDirection()));
         System.out.println("FireSupply active!");
     }
