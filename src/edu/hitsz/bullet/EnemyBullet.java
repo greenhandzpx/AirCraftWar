@@ -13,7 +13,6 @@ public class EnemyBullet extends AbstractBullet implements Subscriber {
 
     @Override
     public void update() {
-        System.out.println("call update in bullet");
         vanish();
     }
 }

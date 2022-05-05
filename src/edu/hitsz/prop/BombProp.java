@@ -18,7 +18,6 @@ public class BombProp extends AbstractProp {
     @Override
     public void propCallback(HeroAircraft hero) {
         new MusicThread("src/videos/bomb_explosion.wav", 0).start();
-        System.out.println("BombSupply active!");
         notifySubscribers();
     }
 
@@ -40,7 +39,7 @@ public class BombProp extends AbstractProp {
         System.out.println(subscribers.size());
         for (Subscriber subscriber : subscribers) {
             subscriber.update();
-            System.out.println("update all observers");
+//            System.out.println("update all observers");
 //            unsubscribe(subscriber);
         }
     }

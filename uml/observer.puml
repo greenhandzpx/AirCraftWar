@@ -1,0 +1,46 @@
+@startuml
+
+Subscriber <|.. MobEnemy
+Subscriber <|.. EliteEnemy
+Subscriber <|.. EnemyBullet
+
+Subscriber --o BombProp
+
+Interface Subscriber {
+    + update(): void
+}
+
+class MobEnemy {
+    + update(): void
+    + MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp):void
+    + forward():void
+    + shoot():List<Bullet>
+}
+
+class EliteEnemy {
+    + update(): void
+    - shootNum:int
+    - power:int
+    - direction:int
+    + EliteEnemy(int locationX, int locationY,
+    int speedX, int speedY, int hp):void
+    + forward():void
+    + shoot():List<Bullet>
+}
+
+class EnemyBullet {
+    + update(): void
+    + EnemyBullet(int locationX, int locationY,
+     int speedX, int speedY, int power):void
+}
+
+class BombProp {
+    - subscribers: HashSet<Subscriber>
+    + subscribe(Subscriber subscriber): void
+    + unsubscribe(Subscriber subscriber): void
+    + notifySubscriber(): void
+    + BombProp(int locationX, int locationY,
+    int speedX, int speedY):void
+    + propCallback(HeroAircraft hero):void
+}
+@enduml

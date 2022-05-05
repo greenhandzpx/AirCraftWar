@@ -17,7 +17,6 @@ public class MobEnemy extends AbstractAircraft implements Subscriber {
 
     @Override
     public void update() {
-        System.out.println("call update in mob");
         vanish();
     }
 

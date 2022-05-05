@@ -39,7 +39,7 @@ public class BulletProp extends AbstractProp {
 
         hero.setShootNum(hero.getShootNum()+2);
         hero.setBulletCurveStrategy(new ScatterStrategy(hero.getPower(), hero.getShootNum(), hero.getDirection()));
-        System.out.println("FireSupply active!");
+//        System.out.println("FireSupply active!");
     }
 
 }

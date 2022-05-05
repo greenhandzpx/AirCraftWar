@@ -97,6 +97,16 @@ class EliteEnemy {
     + shoot():List<Bullet>
 }
 
+class BossEnemy {
+    - shootNum:int
+    - power:int
+    - direction:int
+    + BossEnemy(int locationX, int locationY,
+    int speedX, int speedY, int hp):void
+    + forward():void
+    + shoot():List<Bullet>
+}
+
 class HeroBullet {
     + HeroBullet(int locationX, int locationY,
      int speedX, int speedY, int power):void
@@ -108,7 +118,6 @@ class EnemyBullet {
 }
 
 class BloodProp {
-    - recoverHp
     + BloodProp(int locationX, int locationY,
     int speedX, int speedY, int recoverHp):void
     + propCallback(HeroAircraft hero):void

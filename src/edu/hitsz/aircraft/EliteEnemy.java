@@ -69,7 +69,7 @@ public class EliteEnemy extends AbstractAircraft implements Subscriber {
     @Override
     public void update() {
         // 当发布者状态变化时，调用该方法
-        System.out.println("call update in elite");
+//        System.out.println("call update in elite");
         super.vanish();
     }
 }

@@ -23,7 +23,6 @@ public class HardGame extends Game {
     @Override
     protected void updateConfig() {
         if (this.time % 10000 == 0) {
-            System.out.println("游戏难度提升！");
             eliteHp += 10;
             enemySpeedY += 4;
             enemyMaxNumber += 3;
@@ -33,6 +32,13 @@ public class HardGame extends Game {
             if (bossScoreThreshold >= 60) {
                 bossScoreThreshold -= 10;
             }
+
+            System.out.println("游戏难度提升！");
+            System.out.printf("精英机血量:%d ", eliteHp);
+            System.out.printf("敌机速度:%d ", enemySpeedY);
+            System.out.printf("敌机最大数量:%d ", enemyMaxNumber);
+            System.out.printf("敌机射击周期:%d ", cycleDuration);
+            System.out.printf("Boss机出现的分数间隔:%d\n", bossScoreThreshold);
         }
     }
 

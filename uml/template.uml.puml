@@ -1,0 +1,27 @@
+@startuml
+Game <|-- EasyGame
+Game <|-- NormalGame
+Game <|-- HardGame
+
+abstract class Game {
+    ' 模板方法
+    + action(): void
+    + createBoss(): void
+    + updateConfig(): void
+}
+
+class EasyGame {
+    + createBoss(): void
+    + updateConfig(): void
+}
+
+class NormalGame {
+    + createBoss(): void
+    + updateConfig(): void
+}
+
+class HardGame {
+    + createBoss(): void
+    + updateConfig(): void
+}
+@enduml
